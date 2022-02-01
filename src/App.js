@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import { useRef } from 'react';
+import { Remarkable } from 'remarkable';
 
-function App() {
+const md = new Remarkable();
+
+const App = () => {
+  const preview = useRef('');
+
+  const handleChange = e => {
+    preview.current.innerHTML = md.render(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div ref={preview}></div>
+      <textarea onChange={handleChange}></textarea>
     </div>
   );
 }
